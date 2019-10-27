@@ -241,13 +241,20 @@ export class NgUploaderService {
 
         Object.keys(headers).forEach(key => xhr.setRequestHeader(key, headers[key]));
 
-        let bodyToSend: FormData | BlobFile;
+        let bodyToSend: FormData | BlobFile | string; // json should be stringified
 
-        if (event.includeWebKitFormBoundary !== false) {
+        if (event.sendDataType === 'formdata') {
+          //event.includeWebKitFormBoundary !== false
           Object.keys(data).forEach(key => file.form.append(key, data[key]));
           file.form.append(event.fieldName || 'file', uploadFile, uploadFile.name);
           bodyToSend = file.form;
-        } else {
+        }
+
+        if (event.sendDataType === 'json') {
+          bodyToSend = JSON.stringify(data);
+        }
+
+        if (event.sendDataType === 'blob') {
           bodyToSend = uploadFile;
         }
 

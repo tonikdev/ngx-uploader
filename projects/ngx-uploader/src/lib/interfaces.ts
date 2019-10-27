@@ -56,6 +56,7 @@ export interface UploadOutput {
 
 export interface UploadInput {
   type: 'uploadAll' | 'uploadFile' | 'cancel' | 'cancelAll' | 'remove' | 'removeAll';
+  sendDataType?: 'json' | 'formdata' | 'blob';
   url?: string;
   method?: string;
   id?: string;

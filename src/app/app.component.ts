@@ -6,7 +6,7 @@ import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions, 
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  url = 'http://localhost:4900/upload';
+  url = 'http://localhost:3000/api/v1/brands/40/projects/upload';
   formData: FormData;
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
@@ -24,6 +24,7 @@ export class AppComponent {
   onUploadOutput(output: UploadOutput): void {
     if (output.type === 'allAddedToQueue') {
       const event: UploadInput = {
+        sendDataType: 'json',
         type: 'uploadAll',
         url: this.url,
         method: 'POST',
@@ -53,6 +54,7 @@ export class AppComponent {
 
   startUpload(): void {
     const event: UploadInput = {
+      sendDataType: 'json',
       type: 'uploadAll',
       url: this.url,
       method: 'POST',
